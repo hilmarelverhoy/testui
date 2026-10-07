@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "testui"
+version = "0.1.0"
+description = "Live TUI for Django test runs with jump-to-neovim"
+requires-python = ">=3.9"
+dependencies = []
+
+[project.optional-dependencies]
+tui = ["textual>=0.80"]
+dev = ["textual>=0.80", "pytest", "pytest-asyncio"]
+
+[project.scripts]
+testui = "testui.tui.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

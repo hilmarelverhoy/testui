@@ -1,0 +1,11 @@
+# Overlay for the api repo's docker-compose.yml: mounts testui into the web
+# container (no image rebuild, nothing added to the api repo) and points it at
+# the TUI listening on the host.
+services:
+  web:
+    volumes:
+      - ${TESTUI_SRC:-/Users/hilmar.elverhoy/test_handler/src}/testui:/opt/testui/testui:ro
+    environment:
+      PYTHONPATH: /opt/testui
+      TESTUI_HOST: host.docker.internal
+      TESTUI_PORT: "${TESTUI_PORT:-8765}"

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# dt [manage.py test args...]  — run the api tests in docker, streaming to testui.
+set -euo pipefail
+API_DIR="${API_DIR:-$HOME/api}"
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+export TESTUI_SRC="$HERE/src"
+cd "$API_DIR"
+exec docker-compose -f docker-compose.yml -f "$HERE/docker-compose.testui.yml" \
+  run --rm web python manage.py test --testrunner=testui.runner.TestuiRunner "$@"
